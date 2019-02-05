@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head> 
+	<link href="style.css" rel="stylesheet" type="text/css"> 
+	<title> TP1 -- Vente de livres </title> </head>
+	<?php include 'counter.php'; ?>
+	 <script src="script.js"></script> 
+<header>
+	<section>
+		<?php echo nb(); ?> visiteurs 
+	</section>
+	<section><h1>Vente de livres</h1></section>
+	<section> Bienvenu NOM Prenon <br/> Quitter </section>
+</header>
+<body>
+	<nav>
+		Recherche :
+		<ul>
+			<li> Auteur : <input id="author" type="text" name="author" onkeyup="findAuthor()"> </li>
+			<li> Ouvre : <input id="work" type="text" name="work" onkeyup="findWork();deleteInput()"> </li>
+		</ul>
+	</nav>	
+</body>
+</html>
