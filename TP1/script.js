@@ -1,13 +1,19 @@
-function findAuthor() {
-	var x = document.getElementById("author").value;
-	alert("Vous avez ecrit : " + x);
-}
+$(function() {
+	$('#authorInput').keyup(function() {
+		$('#authorNav').text($('#authorInput').val())
+	});
+});
 
-function findWork() {
-	var x = document.getElementById("work").value;
-	alert("Vous avez ecrit : " + x);
-}
+$(function() {
+	$('#workInput').keyup(function() {
+		$('#workNav').text($('#workInput').val())
+	});
+});
 
-function deleteInput() {
-	document.getElementById("author").value = "";
-}
+$(function() {
+    $('input').focusout(function() {
+        $('input').val('');
+		$('#workNav').text('Livres ici !');
+		$('#authorNav').text('Auteurs ici !');
+    });
+});

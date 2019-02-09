@@ -12,12 +12,11 @@ function nb()
 
 	if(!isset($_COOKIE["visite"])) {
 		$counter++;
-		setcookie("visite", "true", time()+3600);
+		setcookie("visite", "true", time() + 3600);
 
 		$file = fopen("counter.txt","w");
 		fwrite($file, $counter);
 		fclose($file);
-
 	}
 	return $counter;
 }
