@@ -3,7 +3,7 @@
 function nb()
 {
 	if (file_exists("counter.txt")){
-		$file = fopen("counter.txt","r+");
+		$file = fopen("counter.txt","r");
 		$counter = (int) fread($file, filesize("counter.txt"));
 		fclose($file);
 	}else{
