@@ -1,0 +1,42 @@
+<?php
+class Auteur {
+	var $nom;
+	var $prenom;
+	var $code;
+	var $naissance;
+	var $code_nationalite;
+}
+
+class PDOTP{
+	public function __connect() {}
+
+	public function searchAuthors($match) {
+		$conn = new PDO('pgsql:host=postgres;port=5432;dbname=livres', 'lrolan', 'l4ur3n') or die ("<br/>Could not connect to Server");
+
+		$authors = [];
+
+		$sql = "SELECT * FROM auteurs WHERE nom LIKE '%$match%' OR prenom LIKE '%$match%'";
+
+		$resultset = $conn->prepare($sql);
+		$resultset->execute();
+
+		while ($row = $resultset->fetch(PDO::FETCH_ASSOC)) {
+			$author = new Auteur();
+			$author->nom = $row['nom'];
+			$author->prenom = $row['prenom'];
+			$author->code = $row['code'];
+			$author->naissance = $row['naissance'];
+			$author->code_nationalite = $row['code_nationalite'];
+			$authors[] = $author;
+		}
+		return json_encode($authors);
+	}	
+	
+}
+
+if (isset($_POST['getAuthor'])) {
+	$pdotp = new PDOTP();
+    echo $pdotp->searchAuthors($_POST['getAuthor']);
+}
+
+?>
