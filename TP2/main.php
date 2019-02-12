@@ -20,11 +20,13 @@
 		Recherche :
 		<ul>
 			<li> Auteur : <input id="authorInput" type="text" name="author"> </li>
-			<li> Ouvre : <input id="workInput" type="text" name="work"> </li>
+			<li> Ouvrage : <input id="workInput" type="text" name="work"> </li>
 		</ul>
 	</nav>
-	<section id='welcome'>Bienvenu sur le site de la bibliothèque virtuelle</section>
-	<div id='authorNav'> Auteurs ici ! </div>
-	<div id='workNav'> Livres ici ! </div>	
+	<section id='welcome'>
+		<p>Bienvenu sur le site de la bibliothèque virtuelle</p>
+		<div id='authorNav'> Auteurs ici ! </div>
+		<div id='workNav'> Livres ici ! </div>
+	</section>
 </body>
 </html>

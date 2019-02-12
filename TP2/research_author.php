@@ -7,12 +7,11 @@ class Auteur {
 	var $code_nationalite;
 }
 
-class PDOTP{
-	public function __connect() {}
+class PDOAuthors {
+	public function __connect() { }
 
 	public function searchAuthors($match) {
 		$conn = new PDO('pgsql:host=postgres;port=5432;dbname=livres', 'lrolan', 'l4ur3n') or die ("<br/>Could not connect to Server");
-
 		$authors = [];
 
 		$sql = "SELECT * FROM auteurs WHERE nom LIKE '%$match%' OR prenom LIKE '%$match%'";
@@ -30,13 +29,11 @@ class PDOTP{
 			$authors[] = $author;
 		}
 		return json_encode($authors);
-	}	
-	
+	}
 }
 
 if (isset($_POST['getAuthor'])) {
-	$pdotp = new PDOTP();
+	$pdotp = new PDOAuthors();
     echo $pdotp->searchAuthors($_POST['getAuthor']);
 }
-
 ?>
