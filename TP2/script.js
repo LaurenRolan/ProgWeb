@@ -2,7 +2,7 @@ function affiche_auteurs(data) {
 	$('#authorNav').text("");
 	$('#authorNav').append("<ol>");
 	jQuery.each(data, function(index, item) {
-		$('#authorNav').append("<li><a href=\"#workNav\" onclick=\"recherche_ouvrages_auteur("+ item.code +")\">" + item.prenom + " " + item.nom + "</a></li>");
+		$('#authorNav').append("<li id=" + item.code + "><a href=\"#workNav\" onclick=\"recherche_ouvrages_auteur("+ item.code +")\">" + item.prenom + " " + item.nom + "</a></li>");
 	});
 	$('#authorNav').append("</ol>");	
 
@@ -12,10 +12,20 @@ function affiche_ouvrages(data) {
 	$('#workNav').text("");
 	$('#workNav').append("<ol>");
 	jQuery.each(data, function(index, item) {
-		$('#workNav').append("<li>" + item.nom + "<li>");
+		$('#workNav').append("<li>" + item.nom + "<ul id=" + item.code +"></ul>" + "</li>");
+		console.log(item.exemplaires);
+		affiche_exemplaires(item.exemplaires, item.code);
 	});
 	$('#workNav').append("</ol>");	
 
+}
+
+function affiche_exemplaires(exemplaires, code) {
+
+	for(var item in exemplaires) {
+		console.log(code + " " + item.nom);
+		$('#' + code).append("<li>" + item.nom + "" + item.prix + "</li>");
+	}
 }
 
 function recherche_ouvrages_auteur(code) {
@@ -33,7 +43,7 @@ function recherche_ouvrages_auteur(code) {
 $(function() {
 	$('#authorInput').keyup(function() {
 		$('#workInput').val("");
-		$('#workNav').text('Livres ici !');
+		$('#workNav').text("");
 		$.ajax({
                 type: 'POST',
                 url: 'research_author.php',
@@ -47,7 +57,7 @@ $(function() {
 $(function() {
 	$('#workInput').keyup(function() {
 		$('#authorInput').val("");
-		$('#authorNav').text('Auteurs ici !');
+		$('#authorNav').text("");
 		$.ajax({
                 type: 'POST',
                 url: 'research_books.php',

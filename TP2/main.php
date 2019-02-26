@@ -25,8 +25,8 @@
 	</nav>
 	<section id='welcome'>
 		<p>Bienvenu sur le site de la bibliothèque virtuelle</p>
-		<div id='authorNav'> Auteurs ici ! </div>
-		<div id='workNav'> Livres ici ! </div>
+		<div id='authorNav'> </div>
+		<div id='workNav'> </div>
 	</section>
 </body>
 </html>

@@ -13,7 +13,7 @@ class PDOAuthorSearch {
 		$conn = new PDO('pgsql:host=postgres;port=5432;dbname=livres', 'lrolan', 'l4ur3n') or die ("<br/>Could not connect to Server");
 		$books = [];
 
-		$sql = "SELECT * FROM ecrit_par WHERE code_auteur LIKE '%$match%'"; 
+		$sql = "SELECT * FROM ecrit_par WHERE code_auteur=$match"; 
 		//Utiliser ecrit_par comme middleman
 
 		$resultset = $conn->prepare($sql);
@@ -21,8 +21,7 @@ class PDOAuthorSearch {
 
 		$codeLivre = $resultset->fetch(PDO::FETCH_ASSOC)['code_ouvrage'];
 
-
-		$sql = "SELECT * FROM ouvrages WHERE code LIKE '%$codeLivre%'"; 
+		$sql = "SELECT * FROM ouvrage WHERE code=$codeLivre"; 
 		//Utiliser ecrit_par comme middleman
 
 		$resultset = $conn->prepare($sql);
@@ -40,8 +39,9 @@ class PDOAuthorSearch {
 	}
 }
 
-//if (isset($_POST['getAuthor'])) {
+if (isset($_POST['getAuthor'])) {
 	$pdotp = new PDOAuthorSearch();
-    echo $pdotp->searchByAuthor("5"); //
-//}
+    echo $pdotp->searchByAuthor($_POST['getAuthor']);
+}
+
 ?>
