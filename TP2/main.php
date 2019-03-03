@@ -4,8 +4,9 @@
 	<meta charset="UTF-8"> 
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.8.0.min.js"></script>
 	<link href="style.css" rel="stylesheet" type="text/css"> 
-	<title> TP1 -- Vente de livres </title> </head>
+	<title> TP2 -- Vente de livres </title> 
 	<script src="script.js"></script> 
+</head>
 <header>
 	<section>
 		<?php include 'counter.php';

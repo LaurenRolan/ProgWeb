@@ -21,11 +21,10 @@ function affiche_ouvrages(data) {
 }
 
 function affiche_exemplaires(exemplaires, code) {
-
-	for(var item in exemplaires) {
+	exemplaires.forEach(function(item) {
 		console.log(code + " " + item.nom);
-		$('#' + code).append("<li>" + item.nom + "" + item.prix + "</li>");
-	}
+		$('#' + code).append("<li>" + item.nom + ", " + item.prix + " euros</li>");
+	});
 }
 
 function recherche_ouvrages_auteur(code) {

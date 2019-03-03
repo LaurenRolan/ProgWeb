@@ -18,16 +18,9 @@ class PDOAuthors {
 
 		$resultset = $conn->prepare($sql);
 		$resultset->execute();
+		
+		$authors = $resultset->fetchAll(PDO::FETCH_CLASS, "Auteur");
 
-		while ($row = $resultset->fetch(PDO::FETCH_ASSOC)) {
-			$author = new Auteur();
-			$author->nom = $row['nom'];
-			$author->prenom = $row['prenom'];
-			$author->code = $row['code'];
-			$author->naissance = $row['naissance'];
-			$author->code_nationalite = $row['code_nationalite'];
-			$authors[] = $author;
-		}
 		return json_encode($authors);
 	}
 }
