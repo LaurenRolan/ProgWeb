@@ -19,11 +19,12 @@ header {
 
 nav {
   float:left;
+  padding: 15px;
   margin-right: 20px;
   border-style: solid;
   border-color: #99a0aa;
   border-width: 1px;
-  width:32%;
+  display: inline-block;
   background-color: #ffffff;
 }
 
@@ -41,8 +42,8 @@ nav {
 
 div {
   float: left;
-  width: 45%;
-  padding: 10px 10px;
+  width: 40%;
+  padding: 30px 30px;
   text-align:left;
 }
 
@@ -63,4 +64,18 @@ a:visited {
 a:hover {
 	color: #bec4ce;
 	text-decoration: undeline;
+}
+
+.exemplaire {
+	list-style-type: circle;
+}
+
+.label {
+	text-align: right;
+}
+
+#mainLabel {
+	text-align: center;
+	text-decoration-style: bold;
+	color: #757e8e;
 }

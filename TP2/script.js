@@ -23,7 +23,7 @@ function affiche_ouvrages(data) {
 function affiche_exemplaires(exemplaires, code) {
 	exemplaires.forEach(function(item) {
 		console.log(code + " " + item.nom);
-		$('#' + code).append("<li>" + item.nom + ", " + item.prix + " euros</li>");
+		$('#' + code).append("<li class='exemplaire'>" + item.nom + ", " + item.prix + " euros</li>");
 	});
 }
 
@@ -45,7 +45,7 @@ $(function() {
 		$('#workNav').text("");
 		$.ajax({
                 type: 'POST',
-                url: 'research_author.php',
+                url: 'recherche_auteur.php',
                 data: {'getAuthor' : $('#authorInput').val()},
                 dataType: 'json',
                 success: function(data) { affiche_auteurs(data); }
@@ -59,7 +59,7 @@ $(function() {
 		$('#authorNav').text("");
 		$.ajax({
                 type: 'POST',
-                url: 'research_books.php',
+                url: 'recherche_ouvrages_titre.php',
                 data: {'getBook' : $('#workInput').val()},
                 dataType: 'json',
                 success: function(data) { affiche_ouvrages(data); }
