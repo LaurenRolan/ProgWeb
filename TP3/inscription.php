@@ -6,9 +6,9 @@ class PDOClients {
 		$this->conn = new PDO('pgsql:host=postgres;port=5432;dbname=livres', 'lrolan', 'l4ur3n') or die ("<br/>Could not connect to Server");
 	}
 
-	public function insertClient($match) {
+	public function insertClient($nom, $prenom, $adresse, $cp, $ville, $pays ) {
 
-		$sql = "SELECT inscript('$nom', '$prenom', '$adresse', '$cp', '$ville', '$ville', '$pays');";
+		$sql = "SELECT inscript('$nom', '$prenom', '$adresse', '$cp', '$ville', '$pays');";
 		$resultset = $conn->fConn>query($sql);
 		$code_client = $resultset->fetch()[0];
 
@@ -19,10 +19,10 @@ class PDOClients {
 	}
 }
 
-if (isset($_POST['nom'], $_POST['prenom'])) { //Completer
+if (isset($_POST['nom'], $_POST['prenom'], $_POST['adresse'], $_POST['cp'], $_POST['ville'], $_POST['pays'])) { //Completer
 	$pdotp = new PDOClients();
 	$pdotp->__connect();
-    echo $pdotp->insertClient($_POST['nom'], $_POST['prenom']);
+    echo $pdotp->insertClient($_POST['nom'], $_POST['prenom'], $_POST['adresse'], $_POST['cp'], $_POST['ville'], $_POST['pays']);
 }
 
 ?>
