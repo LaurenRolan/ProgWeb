@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION inscript(
+CREATE OR REPLACE FUNCTION inscription(
  nomPar VARCHAR, 
  prenomPar VARCHAR,
  adressePar VARCHAR,
@@ -10,16 +10,16 @@ RETURNS integer AS $$
 DECLARE 
 	code_client integer;
 BEGIN
-    SELECT code INTO STRICT code_client FROM clients WHERE nom = nomPar 
-    		AND prenom = prenomPar AND adresse = adressePar AND
-    		cp = cpPar AND ville = villePar AND pays = paysPar;
-    EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-             INSERT INTO clients (nom, prenom, adresse, cp, ville, pays)
-             		VALUES (nomPar, prenomPar, adressePar,cpPar, villePar, paysPar)
-             		RETURNING code INTO code_client;
-             RETURN code_client;
-    RETURN 0;
+    SELECT code INTO code_client FROM clients WHERE nom = nomPar
+    		AND prenom = prenomPar AND adresse = adressePar;
+    IF FOUND THEN code_client := 0;
+    ELSE
+       INSERT INTO clients (nom, prenom, adresse, cp, ville, pays)
+          VALUES (DEFAULT, nomPar, prenomPar, adressePar,cpPar, villePar, paysPar)
+          RETURNING code INTO code_client;
+    END IF;
+    RETURN code_client;
+
 END;
 $$ LANGUAGE plpgsql;
 

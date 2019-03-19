@@ -7,15 +7,15 @@ class PDOClients {
 	}
 
 	public function insertClient($nom, $prenom, $adresse, $cp, $ville, $pays ) {
-
-		$sql = "SELECT inscript('$nom', '$prenom', '$adresse', '$cp', '$ville', '$pays');";
-		$resultset = $conn->fConn>query($sql);
+		$sql = "SELECT inscription('$nom', '$prenom', '$adresse', '$cp', '$ville', '$pays');";
+        echo $sql;
+		$resultset = $this->conn->query($sql);
 		$code_client = $resultset->fetch()[0];
 
 		if($code_client == 0) 
-			echo "no";
+			return "no";
 		else
-			echo code_client;
+			return $code_client;
 	}
 }
 

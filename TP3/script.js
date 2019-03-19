@@ -38,6 +38,40 @@ function recherche_ouvrages_auteur(code) {
     });
 }
 
+function enregistrement() {
+	var nom = document.getElementById("nomInput").value;
+    var prenom = document.getElementById("prenomInput").value;
+    var adresse = document.getElementById("adresseInput").value;
+    var cp = document.getElementById("cpInput").value;
+    var ville = document.getElementById("villeInput").value;
+    var pays = document.getElementById("paysInput").value;
+
+    if(nom == "" || prenom == "" || adresse == "" || cp == "" || ville == "" || pays == "" )
+    {
+        document.getElementById("message").innerText = "Il faut remplir tous les champs";
+        return;
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: 'inscription.php',
+        data: {'nom' : nom,
+				'prenom' : prenom,
+				'adresse' : adresse,
+				'cp' : cp,
+				'ville': ville,
+				'pays' : pays},
+        dataType: 'text',
+        success: function(data) {
+            var form = document.getElementById("form");
+            form.style.display = 'none';
+            var d = new Date();
+            d.setTime(d.getTime() + (60*60*1000));
+            var expires = d.toUTCString();
+            document.cookie = "username=" + nom + prenom + ";expires=" + expires;
+        }
+    });
+}
 
 $(function() {
 	$('#authorInput').keyup(function() {
@@ -66,9 +100,3 @@ $(function() {
             });
 	});
 });
-
-////////////////////////    TP3     //////////////////////////////////////
-
-function enregistrement() {
-	
-}
