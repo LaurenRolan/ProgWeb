@@ -1,5 +1,4 @@
 <?php
-
 function nb()
 {
 	if (file_exists("counter.txt")){

@@ -1,3 +1,21 @@
+<?php
+session_start();
+include 'recherche_client.php';
+if( isset( $_COOKIE['code_client'])) {
+	if( !isset( $_SESSION['nom'] ) && !isset($_SESSION['prenom'])) {
+		$client = searchClientByID(substr($_COOKIE['code_client'], 0, -4)); 
+		echo $client->nom;
+		echo $client->prenom;
+		$_SESSION['nom'] = $client->nom;
+		$_SESSION['prenom'] = $client->prenom;
+		$_SESSION['code_client'] = substr($_COOKIE['code_client'], 0, -4);
+	}
+	$msg = "Bienvenue " + $client->nom + " " + $client->prenom;
+}
+else {
+	$msg = "<a href='javascript:montreForm();'> Inscription </a>";
+}
+?>
 <!DOCTYPE html>
 <html>
 <head> 
@@ -16,7 +34,7 @@
 		?> visiteurs 
 	</section>
 	<section><h1>Vente de livres</h1></section>
-    <section> <p id="infoClient"> Bienvenue NOM Prenon </p> <br/> Quitter </section>
+    <section> <?php echo $msg; ?> <br/> Quitter </section>
 </header>
 <body>
 	<nav>
@@ -34,7 +52,7 @@
 		</table>
         </div>
         <br>
-        <div id="form">
+        <div id="form" display="none">
             Nom : <input type="text" id="nomInput"> <br>
             Prenom : <input type="text" id="prenomInput"> <br>
             Adresse : <input type="text" id="adresseInput"> <br>

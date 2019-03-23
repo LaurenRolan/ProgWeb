@@ -8,7 +8,6 @@ class PDOClients {
 
 	public function insertClient($nom, $prenom, $adresse, $cp, $ville, $pays ) {
 		$sql = "SELECT inscription('$nom', '$prenom', '$adresse', '$cp', '$ville', '$pays');";
-        echo $sql;
 		$resultset = $this->conn->query($sql);
 		$code_client = $resultset->fetch()[0];
 

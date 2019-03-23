@@ -1,11 +1,5 @@
 <?php
-class Auteur {
-	var $nom;
-	var $prenom;
-	var $code;
-	var $naissance;
-	var $code_nationalite;
-}
+include 'Classes.php';
 
 class PDOAuthors {
 	var $conn;

@@ -38,6 +38,11 @@ function recherche_ouvrages_auteur(code) {
     });
 }
 
+function montreForm() {
+	var form = document.getElementById("form");
+	form.style.display = 'block';
+}
+
 function enregistrement() {
 	var nom = document.getElementById("nomInput").value;
     var prenom = document.getElementById("prenomInput").value;
@@ -63,14 +68,37 @@ function enregistrement() {
 				'pays' : pays},
         dataType: 'text',
         success: function(data) {
-            var form = document.getElementById("form");
-            form.style.display = 'none';
-            var d = new Date();
-            d.setTime(d.getTime() + (60*60*1000));
-            var expires = d.toUTCString();
-            document.cookie = "username=" + nom + prenom + ";expires=" + expires;
-        }
+			if(data != "no") {
+				setCookie(data);
+			}
+			else {
+				getClientCode(nom, prenom);
+			}
+		}
     });
+}
+
+function getClientCode(nom, prenom) {
+	$.ajax({
+        type: 'POST',
+        url: 'recherche_client_nom.php',
+        data: {'nom' : nom,
+				'prenom' : prenom},
+        dataType: 'text',
+        success: function(data) {
+			alert(data);
+			setCookie(data);
+		}
+	});
+}
+
+function setCookie(code_client) {
+	var form = document.getElementById("form");
+	form.style.display = 'none';
+	var d = new Date();
+	d.setTime(d.getTime() + (60*60*1000));
+	var expires = d.toUTCString();
+	document.cookie = "code_client=" + code_client + "2050;expires=" + expires;
 }
 
 $(function() {

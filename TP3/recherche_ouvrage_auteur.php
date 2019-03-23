@@ -1,17 +1,5 @@
 <?php
-class Ouvrage {
-	var $nom;
-	var $code;
-	var $parution;
-	var $sujet;
-	var $exemplaires = [];
-}
-
-class Exemplaire {
-	var $nom;
-	var $code;
-	var $prix;
-}
+include 'Classes.php';
 
 class PDOAuthorSearch {
 	var $conn;
