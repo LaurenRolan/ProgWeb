@@ -1,18 +1,15 @@
 <?php
-include 'Client.php';
-include 'PDO_TP.php';
+include 'Classes.php';
 
 function searchByName($nom, $prenom) {
 	$pdo = new PDO_TP();
 	$pdo->__connect();
 
-	$sql = "SELECT code FROM clients WHERE nom='%$nom%' AND prenom='%$prenom%'";
+	$sql = "SELECT code FROM clients WHERE nom='$nom' AND prenom='$prenom'";
 	
-	$resultset = $pdo->conn->prepare($sql);
-	$resultset->execute();
+	$resultset = $pdo->conn->query($sql);
 	
-	$code = $resultset->fetch();
-	
+	$code = $resultset->fetchColumn();
 	return $code;
 }
 

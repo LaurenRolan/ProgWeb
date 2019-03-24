@@ -1,4 +1,11 @@
 <?php
+class Panier {
+	var $titre;
+	var $editeur;
+	var $quantite;
+	var $prix;
+}
+
 class Ouvrage {
 	var $nom;
 	var $code;
@@ -30,6 +37,7 @@ class PDO_TP {
 	public $conn;
 	public function __connect() {
 		$this->conn = new PDO('pgsql:host=postgres;port=5432;dbname=livres', 'lrolan', 'l4ur3n') or die ("<br/>Could not connect to Server");
+		$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 }
 ?>

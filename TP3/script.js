@@ -13,17 +13,35 @@ function affiche_ouvrages(data) {
 	$('#workNav').append("<ol>");
 	jQuery.each(data, function(index, item) {
 		$('#workNav').append("<li class='work'>" + item.nom + "<ul id=" + item.code +"></ul>" + "</li>");
-		console.log(item.exemplaires);
 		affiche_exemplaires(item.exemplaires, item.code);
 	});
 	$('#workNav').append("</ol>");	
 
 }
 
+function affiche_panier(data) {
+	$('#panierNav').text("");
+	$('#panierNav').append("<table>");
+	var header = "<tr><th>Titre</th><th>Editeur</th>" +
+				"<th>Prix</th><th>Quantite</th>";
+	$('#panierNav').append(header);
+	jQuery.each(data, function(index, item) {
+		var line = "<tr> <td>" + item.titre + 
+			"</td><td>" + item.editeur +"</td><td>" +
+			item.prix + "</td><td>" + item.quantite + 
+			"</td></tr>";
+		$('#panierNav').append(line);
+	});
+	$('#panierNav').append("</table>");	
+
+}
+
 function affiche_exemplaires(exemplaires, code) {
 	exemplaires.forEach(function(item) {
-		console.log(code + " " + item.nom);
-		$('#' + code).append("<li class='exemplaire'>" + item.nom + ", " + item.prix + " euros</li>");
+		var line = "<li class='exemplaire'>" + item.nom + 
+					", " + item.prix + " euros [<a href='javascript:ajouter_panier(" +
+					item.code + ");'> ajouter au panier </a>] </li>";
+		$('#' + code).append(line);
 	});
 }
 
@@ -40,7 +58,50 @@ function recherche_ouvrages_auteur(code) {
 
 function montreForm() {
 	var form = document.getElementById("form");
-	form.style.display = 'block';
+	form.style.display = "block";
+}
+
+function fermePanier() {
+	document.getElementById("authorNav").style.display = "block";
+	document.getElementById("workNav").style.display = "block"; 
+	document.getElementById("panierNav").style.display = "none";
+}
+
+function montrePanier() {
+	document.getElementById("authorNav").style.display = "none";
+	document.getElementById("workNav").style.display = "none"; 
+	var panier = document.getElementById("panierNav");
+	panier.style.display = "block";
+	$.ajax({
+        type: 'POST',
+        url: 'panier_info.php',
+        data: {'client' : global_code_client},
+        dataType: 'json',
+        success: function(data) { 
+			alert("Under construction.");
+			//affiche_panier(data); 
+		}
+    });
+	
+}
+
+function ajouter_panier(code_exemplaire) {
+	$.ajax({
+        type: 'POST',
+        url: 'ajouter_panier.php',
+        data: {'exemp' : code_exemplaire,
+			   'client' : global_code_client}
+    });
+	alert("L'article a été ajouté au panier");
+}
+
+function vider_panier(code_exemplaire) {
+	$.ajax({
+        type: 'POST',
+        url: 'vider_panier.php',
+        data: {'client' : global_code_client}
+    });
+	alert("Le panier a été vidé.");
 }
 
 function enregistrement() {
@@ -76,6 +137,12 @@ function enregistrement() {
 			}
 		}
     });
+	showName(nom, prenom);
+}
+
+function showName(nom, prenom) {
+	var par = document.getElementById("msg");
+	msg.innerText = "Bienvenue " + nom + " " + prenom;
 }
 
 function getClientCode(nom, prenom) {
@@ -86,7 +153,6 @@ function getClientCode(nom, prenom) {
 				'prenom' : prenom},
         dataType: 'text',
         success: function(data) {
-			alert(data);
 			setCookie(data);
 		}
 	});

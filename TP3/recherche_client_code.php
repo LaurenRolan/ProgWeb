@@ -1,19 +1,17 @@
 <?php
-include 'Client.php';
-include 'PDO_TP.php';
+include 'Classes.php';
 
 function searchClientByID($match) {
 		$client = new Client;
 		$pdo = new PDO_TP;
 		$pdo->__connect();
 		
-		$sql = "SELECT * FROM clients WHERE code is '%$match%'";
+		$sql = "SELECT * FROM clients WHERE code='$match'";
 
-		$resultset = $pdo->conn->prepare($sql);
-		$resultset->execute();
+		$resultset = $pdo->conn->query($sql);
 		
-		$client->nom = $resultset->fetch(PDO::FETCH_ASSOC)['nom'];
-		$client->prenom = $resultset->fetch(PDO::FETCH_ASSOC)['prenom'];
+		$client->nom = $resultset->fetch()['nom'];
+		$client->prenom = $resultset->fetch()['prenom'];
 
 		return $client;
 	}
